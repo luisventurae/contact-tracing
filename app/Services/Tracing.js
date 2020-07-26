@@ -1,5 +1,6 @@
 'use strict'
 
+const Pin = require('App/Models/Pin')
 const moment = require('moment')
 const pins = []
 const radius = 0.75 // 1.5m de diámetro - Distancia mínima permitida
@@ -7,15 +8,17 @@ const radius = 0.75 // 1.5m de diámetro - Distancia mínima permitida
 class Tracing {
 
     async getPins() {
-        return pins
+        return Pin.find()
     }
     /**
      * @param {Object} pin 
      */
     async savePin(pin) {
-        pin.id = Math.floor(Math.random() * (9999999 - 1000000)) + 1 // Generación de id aleatorio
+        pin.type = 'peaton'
         console.log('pin',pin)
         pins.push(pin)
+        const n_pin = new Pin(pin) 
+        await n_pin.save()
         this.discoverAround(pin.location[0],pin.location[1])
         return true
     }
