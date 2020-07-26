@@ -2,21 +2,20 @@
 
 const Pin = require('App/Models/Pin')
 const moment = require('moment')
-const pins = []
 const radius = 0.75 // 1.5m de diámetro - Distancia mínima permitida
 
 class Tracing {
 
     async getPins() {
+        // let now = new Date()
+        // return Pin.find({$minute:now})
         return Pin.find()
     }
     /**
      * @param {Object} pin 
      */
     async savePin(pin) {
-        pin.type = 'peaton'
         console.log('pin',pin)
-        pins.push(pin)
         const n_pin = new Pin(pin) 
         await n_pin.save()
         this.discoverAround(pin.location[0],pin.location[1])
