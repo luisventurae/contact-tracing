@@ -10,15 +10,27 @@ class Tracing {
         // let now = new Date()
         // return Pin.find({$minute:now})
         return Pin.find()
+        // return Pin.find({
+        //     location: {
+        //         $near:{
+        //             $geometry : {
+        //                 type : "Point",
+        //                 coordinates : [-12.169696,-77.002841],
+        //             },
+        //             $maxDistance:1
+        //         }
+        //     }
+        // })
     }
     /**
      * @param {Object} pin 
      */
     async savePin(pin) {
         console.log('pin',pin)
+        pin.location = { type:"Point", coordinates: pin.location }
         const n_pin = new Pin(pin) 
         await n_pin.save()
-        this.discoverAround(pin.location[0],pin.location[1])
+        // this.discoverAround(pin.location[0],pin.location[1])
         return true
     }
     /**
