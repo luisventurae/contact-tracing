@@ -1,6 +1,6 @@
 'use strict'
 
-const Tracing = require('../services/Tracing')
+const Tracing = require('App/Services/Tracing')
 // estado - check
 // posicion - check
 // tiempo -check
